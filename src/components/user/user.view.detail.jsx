@@ -2,7 +2,7 @@ import { Modal, Button, Divider, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-const ViewUserDetail = ({ dataDetail, setdataDetail, isDetailOpen, setIsDetailOpen }) => {
+const ViewUserDetail = ({ dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen }) => {
     return (
         <Modal
             title="User Detail"
@@ -41,6 +41,29 @@ const ViewUserDetail = ({ dataDetail, setdataDetail, isDetailOpen, setIsDetailOp
                         <p>
                             <Text strong>Số điện thoại:</Text> {dataDetail.phone}
                         </p>
+                        <p>
+                            <Text strong>Avatar:</Text>
+                        </p>
+                        <div>
+                            <img
+                                style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+                                src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${dataDetail.avatar}`}
+                                alt=""
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="btnUpload" style={{
+                                display: "block",
+                                width: "fit-content",
+                                marginTop: "15px",
+                                padding: "5px 10px",
+                                cursor: "pointer",
+                                borderRadius: "5px",
+                                background: "orange"
+                            }}
+                            >Upload Avatar</label>
+                            <input type="file" hidden id="btnUpload" />
+                        </div>
                     </div>
                 ) : (
                     <p style={{ textAlign: "center", fontSize: "16px", marginTop: "16px" }}>
