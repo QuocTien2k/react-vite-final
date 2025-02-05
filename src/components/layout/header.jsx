@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
-import { UsergroupAddOutlined, HomeOutlined, BookOutlined, UserAddOutlined, LoginOutlined } from '@ant-design/icons';
+import { UsergroupAddOutlined, HomeOutlined, BookOutlined, UserAddOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/auth.Context';
 const Header = () => {
 
     const [current, setCurrent] = useState('');
+    const { user } = useContext(AuthContext);
+    console.log("check user: ", user);
+
     const onClick = (e) => {
         //console.log('click ', e);
         setCurrent(e.key);
@@ -31,32 +35,45 @@ const Header = () => {
 
     // Menu bên phải
     const rightItems = [
-        {
-            label: <Link to={"/register"}>Register</Link>,
-            key: "register",
-            icon: <UserAddOutlined />,
-            style: { marginLeft: "auto" }, // Đẩy sang phải
-        },
-        {
-            label: <Link to={"/login"}>Login</Link>,
-            key: "login",
-            icon: <LoginOutlined />,
-        },
+        ...(!user.id ? [
+            {
+                label: <Link to={"/register"}>Register</Link>,
+                key: "register",
+                icon: <UserAddOutlined />,
+                style: { marginLeft: "auto" }, // Đẩy sang phải
+            },
+            {
+                label: <Link to={"/login"}>Login</Link>,
+                key: "login",
+                icon: <LoginOutlined />,
+            },
+        ] : [
+            {
+                label: `Hello, ${user.fullName}`,
+                key: "setting",
+                icon: <AliwangwangOutlined />,
+                style: { marginLeft: "auto" }, // Đẩy sang phải
+                children: [
+                    {
+                        label: "Đăng xuất",
+                        key: "logout"
+                    }
+                ]
+            }
+        ]),
     ];
 
     return (
-        <Menu onclick={onClick} selectkeys={[current]} mode="horizontal">
-            {leftItems.map((item) => (
-                <Menu.Item key={item.key} icon={item.icon}>{item.label}</Menu.Item>
-            ))}
-
-            {/* Khoảng trống đẩy bên phải */}
-            <Menu.Item style={{ marginLeft: "auto" }} disabled></Menu.Item>
-
-            {rightItems.map((item) => (
-                <Menu.Item key={item.key} icon={item.icon}>{item.label}</Menu.Item>
-            ))}
-        </Menu>
+        <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={[
+                ...leftItems,
+                { type: "divider" }, // Tạo khoảng trống (nếu cần)
+                ...rightItems,
+            ]}
+        />
     );
 }
 
@@ -64,4 +81,5 @@ export default Header;
 /* 
 - Thẻ Navlink: là một thẻ giúp chuyển hướng giữa các trang mà không cần load lại trang và thêm class active
 - Thẻ Link: là một thẻ giúp chuyển hướng giữa các trang mà không cần load lại trang
+- ...leftItems/...rightItems: là cú pháp spread operator giúp nối mảng leftItems/rightItems vào mảng items của Menu
 */
