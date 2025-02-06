@@ -9,7 +9,7 @@ const Header = () => {
     const [current, setCurrent] = useState('');
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log("check user: ", user);
+    //console.log("check user: ", user);
 
     const onClick = (e) => {
         //console.log('click ', e);
