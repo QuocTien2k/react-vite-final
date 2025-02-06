@@ -82,4 +82,7 @@ export default Header;
 - Thẻ Navlink: là một thẻ giúp chuyển hướng giữa các trang mà không cần load lại trang và thêm class active
 - Thẻ Link: là một thẻ giúp chuyển hướng giữa các trang mà không cần load lại trang
 - ...leftItems/...rightItems: là cú pháp spread operator giúp nối mảng leftItems/rightItems vào mảng items của Menu
+
+- Đoạn code ...(!user.id ? [ ... ] : [ ... ]): là cú pháp điều kiện 3 ngôi, 
+nếu user.id không tồn tại thì hiển thị mảng đầu tiên, ngược lại hiển thị mảng thứ 2
 */
