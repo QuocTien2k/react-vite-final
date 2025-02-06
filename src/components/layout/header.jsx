@@ -1,18 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UsergroupAddOutlined, HomeOutlined, BookOutlined, UserAddOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/auth.Context';
+import { logoutAPI } from '../services/api.service';
 const Header = () => {
 
     const [current, setCurrent] = useState('');
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     console.log("check user: ", user);
 
     const onClick = (e) => {
         //console.log('click ', e);
         setCurrent(e.key);
     };
+
+    const handleLogout = async () => {
+        const res = await logoutAPI();
+
+        if (res.data) {
+            //clear data
+            localStorage.removeItem("access_token");
+            setUser({
+                email: "",
+                phone: "",
+                fullName: "",
+                role: "",
+                avatar: "",
+                id: ""
+            })
+            //redirect to home
+            navigate("/");
+        }
+    }
 
     // Menu bên trái
     const leftItems = [
@@ -55,7 +76,7 @@ const Header = () => {
                 style: { marginLeft: "auto" }, // Đẩy sang phải
                 children: [
                     {
-                        label: "Đăng xuất",
+                        label: <span onClick={() => handleLogout()}>Đăng xuất</span>,
                         key: "logout"
                     }
                 ]
