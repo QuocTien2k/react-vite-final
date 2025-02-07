@@ -2,12 +2,15 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Popconfirm, Table } from "antd"
 import { useState } from "react";
 import BookDetail from "./book.view.detail";
+import UpdateBookControl from "./update.book.control";
 
 const BookTable = (props) => {
     const { dataBooks, current, pageSize, total, loadBook, setCurrent, setPageSize } = props;
     //console.log(dataBooks);
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState(null);
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
     const handleDeleteBook = async (id) => {
 
@@ -72,8 +75,8 @@ const BookTable = (props) => {
                         <EditOutlined
                             style={{ cursor: "pointer", color: "orange" }}
                             onClick={() => {
-                                //setDataUpdate(record);
-                                //setIsModalUpdateOpen(true);
+                                setDataUpdate(record);
+                                setIsModalUpdateOpen(true);
                             }}
                         />
                         <Popconfirm
@@ -129,6 +132,13 @@ const BookTable = (props) => {
                 setDataDetail={setDataDetail}
                 isDetailOpen={isDetailOpen}
                 setIsDetailOpen={setIsDetailOpen}
+            />
+            <UpdateBookControl
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
             />
         </>
     )
