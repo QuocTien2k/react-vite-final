@@ -1,12 +1,13 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Popconfirm, Table } from "antd"
 import { useState } from "react";
+import BookDetail from "./book.view.detail";
 
 const BookTable = (props) => {
     const { dataBooks, current, pageSize, total, loadBook, setCurrent, setPageSize } = props;
     //console.log(dataBooks);
-    //const [dataDetail, setDataDetail] = useState(null);
-    //const [isDetailOpen, setIsDetailOpen] = useState(false);
+    const [dataDetail, setDataDetail] = useState(null);
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
 
     const handleDeleteBook = async (id) => {
 
@@ -27,12 +28,13 @@ const BookTable = (props) => {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
+                //console.log(record);
                 return (
                     <a
                         href='#'
                         onClick={() => {
-                            //setDataDetail(record)
-                            //setIsDetailOpen(true)
+                            setDataDetail(record)
+                            setIsDetailOpen(true)
                         }}
                     >
                         {record._id}
@@ -90,6 +92,7 @@ const BookTable = (props) => {
             }
         }
     ];
+
     const onChange = (pagination) => {
         //Nếu thay đổi trang
         if (pagination && pagination.current) {
@@ -105,6 +108,7 @@ const BookTable = (props) => {
             }
         }
     }
+
     return (
         <>
             <Table
@@ -120,8 +124,12 @@ const BookTable = (props) => {
                 }}
                 onChange={onChange}
             />
-
-
+            <BookDetail
+                dataDetail={dataDetail}
+                setDataDetail={setDataDetail}
+                isDetailOpen={isDetailOpen}
+                setIsDetailOpen={setIsDetailOpen}
+            />
         </>
     )
 }
