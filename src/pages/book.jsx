@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import BookTable from "../components/book/book.table";
 import { fetchAllBookAPI } from "../components/services/api.service";
-import CreateBookControl from "../components/book/create.book.control";
+import CreateBookUncontrol from "../components/book/create.book.uncontrol";
+//import CreateBookControl from "../components/book/create.book.control";
 
 const BookPage = () => {
     const [dataBooks, setDataBooks] = useState([]);
@@ -26,7 +27,16 @@ const BookPage = () => {
     }
     return (
         <div style={{ padding: "20px" }}>
-            <CreateBookControl loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} />
+            {/*Cách 1 sử dụng CreateBookControl component */}
+            {/* <CreateBookControl loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} /> */}
+
+            {/*Cách 2 sử dụng CreateBookUncontrol component */}
+            <CreateBookUncontrol
+                isCreateOpen={isCreateOpen}
+                setIsCreateOpen={setIsCreateOpen}
+                loadBook={loadBook}
+            />
+
             <BookTable
                 dataBooks={dataBooks}
                 current={current}
