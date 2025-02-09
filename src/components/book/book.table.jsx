@@ -2,7 +2,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Popconfirm, Table } from "antd"
 import { useState } from "react";
 import BookDetail from "./book.view.detail";
-import UpdateBookControl from "./update.book.control";
+import UpdateBookUncontrol from "./update.book.uncontrol";
+//import UpdateBookControl from "./update.book.control";
 
 const BookTable = (props) => {
     const { dataBooks, current, pageSize, total, loadBook, setCurrent, setPageSize } = props;
@@ -133,7 +134,18 @@ const BookTable = (props) => {
                 isDetailOpen={isDetailOpen}
                 setIsDetailOpen={setIsDetailOpen}
             />
-            <UpdateBookControl
+            {/* Update book su dụng control */}
+            {/* <UpdateBookControl
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateO
+                pen={setIsModalUpdateOpen}
+            /> */}
+
+            {/* {Update book uncontrol} */}
+            <UpdateBookUncontrol
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadBook={loadBook}
