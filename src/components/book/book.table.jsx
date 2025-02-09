@@ -1,8 +1,9 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Popconfirm, Table } from "antd"
+import { message, notification, Popconfirm, Table } from "antd"
 import { useState } from "react";
 import BookDetail from "./book.view.detail";
 import UpdateBookUncontrol from "./update.book.uncontrol";
+import { deleteBookAPI } from "../services/api.service";
 //import UpdateBookControl from "./update.book.control";
 
 const BookTable = (props) => {
@@ -14,7 +15,17 @@ const BookTable = (props) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
     const handleDeleteBook = async (id) => {
+        const res = await deleteBookAPI(id);
 
+        if (res.data) {
+            message.success("Xóa thành công")
+            await loadBook();
+        } else {
+            notification.error({
+                message: "Delete Book Failed",
+                description: JSON.stringify(res.message)
+            })
+        }
     }
 
     const columns = [
